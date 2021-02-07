@@ -22,4 +22,19 @@
       </div>
     </div>
   </nav>
+  
+  <div class="container">
+  <% if user_signed_in? %>
+    <div class="search-form">
+      <div class="text-align: center;">
+        <%= form_with url:search_path, method: "get", local: true do %>
+          <%= text_field_tag (:word) %>
+          <%= select_tag 'model' ,options_for_select([['---選択してください---', ''], ['User', 'user'], ['Book', 'book']]) %>
+          <%= select_tag 'search', options_for_select([["前方一致","forward_match"], ["後方一致","backward_match"], ["完全一致","perfect_match"], ["部分一致","partial_match"]]) %>
+          <%= submit_tag "検索" %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  </div>
 </header>
