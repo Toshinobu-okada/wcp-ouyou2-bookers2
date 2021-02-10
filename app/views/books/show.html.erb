@@ -25,32 +25,14 @@
           <td id="favorite-btn_<%= @book.id %>">
             <%= render 'favorites/favorite-btn', book: @book %>
           </td>
-          <td>
-            <div class="comments">
-              <p>コメント件数： <%= @book.book_comments.count %></p>
-              <% @book.book_comments.each do |book_comment| %>
-                <p><%= attachment_image_tag(@user, :profile_image, :fill, 50, 50, fallback: "no-image-icon.jpg") %></p>
-                <%= book_comment.user.name %>
-                <%= book_comment.created_at.strftime( '%Y/%m/%d') %><%= book_comment.comment %>
-                <% if book_comment.user == current_user %>
-                <div class="comment-delete">
-                  <%= link_to "削除", book_book_comment_path(book_comment.book, book_comment), method: :delete %>
-                </div>
-                <% end %>
-              <% end %>
-            </div>
-            <div class="new-comment">
-              <%= form_with(model:[@book, @book_comment], local: true) do |f| %>
-                <%= f.text_area :comment, rows:'5', placeholder: "コメントをつける" %>
-                <%= f.submit "送信" %>
-              <% end %>
-            </div>
-          </td>
         </tr>
       </table>
-      
-      <h1>re redeering</h1>
-      <div id="favorite-btn_3"></div>
+      <div id="book_comments_<%= @book.id %>", class='col-md-8 offset-md-1'>
+        <%= render 'book_comments/book_comments', book: @book, user: @user %>
+      </div>
+      <div class="new-comment">
+        <%= render 'book_comments/book_comments_form', book: @book, book_comment: @book_comment %>
+      </div>
     </div>
   </div>
 </div>
